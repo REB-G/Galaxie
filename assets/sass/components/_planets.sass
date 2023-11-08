@@ -1,27 +1,29 @@
 @use "../abstracts/_all" as abstracts
 
-.planet
+.galaxy
+    &__planet
+        @include abstracts.d-flex-center-column()
 
-    &--mercury
-        @include abstracts.circle(abstracts.$mercury-size)
+        &--mercury
+            @include abstracts.circle(abstracts.$mercury-size)
 
-    &--venus
-        @include abstracts.circle(abstracts.$venus-size)
+        &--venus
+            @include abstracts.circle(abstracts.$venus-size)
 
-    &--earth
-        @include abstracts.circle(abstracts.$earth-size)
+        &--earth
+            @include abstracts.circle(abstracts.$earth-size)
 
-    &--mars
-        @include abstracts.circle(abstracts.$mars-size)
+        &--mars
+            @include abstracts.circle(abstracts.$mars-size)
 
-    &--jupiter
-        @include abstracts.circle(abstracts.$jupiter-size)
+        &--jupiter
+            @include abstracts.circle(abstracts.$jupiter-size)
 
-    &--saturn
-        @include abstracts.circle(abstracts.$saturn-size)
+        &--saturn
+            @include abstracts.circle(abstracts.$saturn-size)
 
-    &--uranus
-        @include abstracts.circle(abstracts.$uranus-size)
+        &--uranus
+            @include abstracts.circle(abstracts.$uranus-size)
 
-    &--neptune
-        @include abstracts.circle(abstracts.$neptune-size)
+        &--neptune
+            @include abstracts.circle(abstracts.$neptune-size)

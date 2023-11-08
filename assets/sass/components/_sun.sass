@@ -1,4 +1,8 @@
 @use "../abstracts/_all" as abstracts
 
-.sun
-    @include abstracts.circle(abstracts.$sun-size)
+.galaxy
+    &__sun
+        @include abstracts.d-flex-center-column()
+
+        &--img
+            @include abstracts.circle(abstracts.$sun-size)
