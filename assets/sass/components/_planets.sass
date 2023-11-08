@@ -1,0 +1,27 @@
+@use "../abstracts/_all" as abstracts
+
+.planet
+
+    &--mercury
+        @include abstracts.circle(abstracts.$mercury-size, grey)
+
+    &--venus
+        @include abstracts.circle(abstracts.$venus-size, orange)
+
+    &--earth
+        @include abstracts.circle(abstracts.$earth-size, blue)
+
+    &--mars
+        @include abstracts.circle(abstracts.$mars-size, red)
+
+    &--jupiter
+        @include abstracts.circle(abstracts.$jupiter-size, brown)
+
+    &--saturn
+        @include abstracts.circle(abstracts.$saturn-size, yellow)
+
+    &--uranus
+        @include abstracts.circle(abstracts.$uranus-size, green)
+
+    &--neptune
+        @include abstracts.circle(abstracts.$neptune-size, purple)
