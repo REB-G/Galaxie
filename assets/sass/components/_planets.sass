@@ -1,37 +1,108 @@
 @use "../abstracts/_all" as abstracts
 
 .solar-system
-    &__planet
-        @include abstracts.d-flex-center-column()
+    &__mercury
+        background-image: url(../../assets/images/mercury.svg)
+        @include abstracts.circle(abstracts.$mercury-size)
+        @include abstracts.animation-planet(170s)
 
-        &--mercury
-            @include abstracts.circle(abstracts.$mercury-size)
-            @include abstracts.animation-planet(170s)
+    &__venus
+        background-image: url(../../assets/images/venus.svg)
+        @include abstracts.circle(abstracts.$venus-size)
+        @include abstracts.animation-planet(120s)
 
-        &--venus
-            @include abstracts.circle(abstracts.$venus-size)
-            @include abstracts.animation-planet(120s)
+    &__earth
+        background-image: url(../../assets/images/earth.svg)
+        @include abstracts.circle(abstracts.$earth-size)
+        @include abstracts.animation-planet(190s)
+        position: relative
 
-        &--earth
-            @include abstracts.circle(abstracts.$earth-size)
-            @include abstracts.animation-planet(190s)
+        &--moon
+            @extend .satellite
 
-        &--mars
-            @include abstracts.circle(abstracts.$mars-size)
-            @include abstracts.animation-planet(110s)
+    &__mars
+        background-image: url(../../assets/images/mars.svg)
+        @include abstracts.circle(abstracts.$mars-size)
+        @include abstracts.animation-planet(110s)
+        position: relative
 
-        &--jupiter
-            @include abstracts.circle(abstracts.$jupiter-size)
-            @include abstracts.animation-planet(150s)
+        &--phobos
+            @extend .satellite
+        
+        &--deimos
+            @extend .satellite
 
-        &--saturn
-            @include abstracts.circle(abstracts.$saturn-size)
-            @include abstracts.animation-planet(130s)
+    &__jupiter
+        background-image: url(../../assets/images/jupiter.svg)
+        @include abstracts.circle(abstracts.$jupiter-size)
+        @include abstracts.animation-planet(150s)
+        position: relative
 
-        &--uranus
-            @include abstracts.circle(abstracts.$uranus-size)
-            @include abstracts.animation-planet(160s)
+        &--lo
+            @extend .satellite
 
-        &--neptune
-            @include abstracts.circle(abstracts.$neptune-size)
-            @include abstracts.animation-planet(140s)
+        &--europe
+            @extend .satellite
+
+        &--ganymede
+            @extend .satellite
+
+        &--callisto
+            @extend .satellite
+
+    &__saturn
+        background-image: url(../../assets/images/saturn.svg)
+        @include abstracts.circle(abstracts.$saturn-size)
+        @include abstracts.animation-planet(130s)
+        position: relative
+
+        &--titan
+            @extend .satellite
+
+        &--encelade
+            @extend .satellite
+
+        &--mimas
+            @extend .satellite
+
+        &--rhea
+            @extend .satellite
+
+    &__uranus
+        background-image: url(../../assets/images/uranus.svg)
+        @include abstracts.circle(abstracts.$uranus-size)
+        @include abstracts.animation-planet(160s)
+        position: relative
+
+        &--titania
+            @extend .satellite
+
+        &--oberon
+            @extend .satellite
+
+        &--umbriel
+            @extend .satellite
+
+        &--ariel
+            @extend .satellite
+
+        &--miranda
+            @extend .satellite
+
+    &__neptune
+        background-image: url(../../assets/images/neptune.svg)
+        @include abstracts.circle(abstracts.$neptune-size)
+        @include abstracts.animation-planet(140s)
+        position: relative
+
+        &--triton
+            @extend .satellite
+
+        &--nereide
+            @extend .satellite
+
+        &--protee
+            @extend .satellite
+
+        &--larissa
+            @extend .satellite

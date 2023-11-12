@@ -2,8 +2,6 @@
 
 .solar-system
     &__sun
-        @include abstracts.d-flex-center-column()
-
-        &--img
-            @include abstracts.circle(abstracts.$sun-size)
-            @include abstracts.animation-planet(200s)
+        background-image: url(../../assets/images/sun.svg)
+        @include abstracts.circle(abstracts.$sun-size)
+        @include abstracts.animation-planet(200s)
