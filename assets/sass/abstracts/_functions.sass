@@ -1,0 +1,9 @@
+@use "sass:math"
+
+// Le math.random() permet de générer un nombre aléatoire entre 0 et 1 par défaut.
+// Si l'on rajouter une valeur dans la fonction comme ici avec lee math.random(100), cela permet de générer un nombre aléatoire entre 0 et 100.
+
+@function stars-random-position()
+    $number: math.random(100)
+    $unit: "%"
+    @return #{$number} + #{$unit}
