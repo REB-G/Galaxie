@@ -1,108 +1,82 @@
 @use "../abstracts/_all" as abstracts
+@use "sass:map"
+
+// map.get($map, $key) permet d'indiquer où aller chercher une valeur et quelle valeur récupérer.
+// Ici cela permet d'aller chercher dans la liste $planets-size la valeur correspondant à $panet.
+
+// Tableau de valeurs
+$list-planets: 'mercury', 'venus', 'earth', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune'
+
+// Tableaux clés/valeurs
+// On peut alors utiliser la fonciton map.get()  
+$planets-size: ('mercury': #{abstracts.$mercury-size}, 'venus': #{abstracts.$venus-size}, 'earth': #{abstracts.$earth-size}, 'mars': #{abstracts.$mars-size}, 'jupiter': #{abstracts.$jupiter-size}, 'saturn': #{abstracts.$saturn-size}, 'uranus': #{abstracts.$uranus-size}, 'neptune': #{abstracts.$neptune-size})
+$speeds-planets: ('mercury': 170s, 'venus': 120s, 'earth': 190s, 'mars': 110s, 'jupiter': 150s, 'saturn': 130s, 'uranus': 160s, 'neptune': 140s)
+$distances-between-sun-and-planets: ('mercury': abstracts.$space-between-planets, 'venus': abstracts.$space-between-planets * 2 + abstracts.$mercury-size, 'earth': abstracts.$space-between-planets * 3 + abstracts.$mercury-size + abstracts.$venus-size, 'mars': abstracts.$space-between-planets * 4 + abstracts.$mercury-size + abstracts.$venus-size + abstracts.$earth-size, 'jupiter': abstracts.$space-between-planets * 5 + abstracts.$mercury-size + abstracts.$venus-size + abstracts.$earth-size + abstracts.$mars-size, 'saturn': abstracts.$space-between-planets * 6 + abstracts.$mercury-size + abstracts.$venus-size + abstracts.$earth-size + abstracts.$mars-size + abstracts.$jupiter-size, 'uranus': abstracts.$space-between-planets * 7 + abstracts.$mercury-size + abstracts.$venus-size + abstracts.$earth-size + abstracts.$mars-size + abstracts.$jupiter-size + abstracts.$saturn-size, 'neptune': abstracts.$space-between-planets * 8 + abstracts.$mercury-size + abstracts.$venus-size + abstracts.$earth-size + abstracts.$mars-size + abstracts.$jupiter-size + abstracts.$saturn-size + abstracts.$uranus-size)
+$speeds-planets-around-the-sun: ('mercury': 10s, 'venus': 15s, 'earth': 19s, 'mars': 20s, 'jupiter': 25s, 'saturn': 30s, 'uranus': 35s, 'neptune': 40s)
+$width: 100px
+@debug "La largeur est #{$width}"
 
 .solar-system
-    &__mercury
-        background-image: url(../../assets/images/mercury.svg)
-        @include abstracts.circle(abstracts.$mercury-size)
-        @include abstracts.animation-planet(170s)
-
-    &__venus
-        background-image: url(../../assets/images/venus.svg)
-        @include abstracts.circle(abstracts.$venus-size)
-        @include abstracts.animation-planet(120s)
+    @each $planet in $list-planets
+        &__#{$planet}
+            position: relative
+            $background-planet: "../../assets/images/#{$planet}.svg"
+            $planet-size: map.get($planets-size, $planet)
+            $speed-planet: map.get($speeds-planets, $planet)
+            $distance-between-sun-and-planet: map.get($distances-between-sun-and-planets, $planet)
+            $speed-planet-around-the-sun: map.get($speeds-planets-around-the-sun, $planet)
+            @include abstracts.circle($planet-size, $background-planet)
+            @include abstracts.animation-planet($speed-planet)
+            @include abstracts.animation-rotate-around-the-sun($distance-between-sun-and-planet, $planet-size, $speed-planet-around-the-sun)
+            @if $planet == 'uranus' or $planet == 'saturn'
+                border-radius: 0
 
     &__earth
-        background-image: url(../../assets/images/earth.svg)
-        @include abstracts.circle(abstracts.$earth-size)
-        @include abstracts.animation-planet(190s)
-        position: relative
-
         &--moon
             @extend .satellite
+            @include abstracts.animation-satellite(abstracts.$earth-size, abstracts.$satellite-size, 5s)
 
     &__mars
-        background-image: url(../../assets/images/mars.svg)
-        @include abstracts.circle(abstracts.$mars-size)
-        @include abstracts.animation-planet(110s)
-        position: relative
-
-        &--phobos
-            @extend .satellite
-        
-        &--deimos
-            @extend .satellite
+        $mars-satellites: 'phobos', 'deimos'
+        $speeds-satellites: ('phobos': 10s, 'deimos': 7s)
+        @each $mars-satellite in $mars-satellites
+            &--#{$mars-satellite}
+                @extend .satellite
+                $speed-satellite: map.get($speeds-satellites, $mars-satellite)
+                @include abstracts.animation-satellite(abstracts.$mars-size, abstracts.$satellite-size, $speed-satellite)
 
     &__jupiter
-        background-image: url(../../assets/images/jupiter.svg)
-        @include abstracts.circle(abstracts.$jupiter-size)
-        @include abstracts.animation-planet(150s)
-        position: relative
-
-        &--lo
-            @extend .satellite
-
-        &--europe
-            @extend .satellite
-
-        &--ganymede
-            @extend .satellite
-
-        &--callisto
-            @extend .satellite
+        $jupiter-satellites: 'lo', 'europe', 'ganymede', 'callisto'
+        $speeds-satellites: ('lo': 5s, 'europe': 7s, 'ganymede': 15s, 'callisto': 10s)
+        @each $jupiter-satellite in $jupiter-satellites
+            &--#{$jupiter-satellite}
+                @extend .satellite
+                $speed-satellite: map.get($speeds-satellites, $jupiter-satellite)
+                @include abstracts.animation-satellite(abstracts.$jupiter-size, abstracts.$satellite-size, $speed-satellite)
 
     &__saturn
-        background-image: url(../../assets/images/saturn.svg)
-        @include abstracts.circle(abstracts.$saturn-size)
-        @include abstracts.animation-planet(130s)
-        position: relative
-
-        &--titan
-            @extend .satellite
-
-        &--encelade
-            @extend .satellite
-
-        &--mimas
-            @extend .satellite
-
-        &--rhea
-            @extend .satellite
+        $saturn-satellites: 'titan', 'encelade', 'mimas', 'rhea'
+        $speeds-satellites: ('titan': 9s, 'encelade': 18s, 'mimas': 7s, 'rhea': 15s)
+        @each $saturn-satellite in $saturn-satellites
+            &--#{$saturn-satellite}
+                @extend .satellite
+                $speed-satellite: map.get($speeds-satellites, $saturn-satellite)
+                @include abstracts.animation-satellite(abstracts.$saturn-size, abstracts.$satellite-size, $speed-satellite)
 
     &__uranus
-        background-image: url(../../assets/images/uranus.svg)
-        @include abstracts.circle(abstracts.$uranus-size)
-        @include abstracts.animation-planet(160s)
-        position: relative
-
-        &--titania
-            @extend .satellite
-
-        &--oberon
-            @extend .satellite
-
-        &--umbriel
-            @extend .satellite
-
-        &--ariel
-            @extend .satellite
-
-        &--miranda
-            @extend .satellite
+        $uranus-satellites: 'titania', 'oberon', 'umbriel', 'ariel', 'miranda'
+        $speeds-satellites: ('titania': 5s, 'oberon': 15s, 'umbriel': 20s, 'ariel': 10s, 'miranda': 9s)
+        @each $uranus-satellite in $uranus-satellites
+            &--#{$uranus-satellite}
+                @extend .satellite
+                $speed-satellite: map.get($speeds-satellites, $uranus-satellite)
+                @include abstracts.animation-satellite(abstracts.$uranus-size, abstracts.$satellite-size, $speed-satellite)
 
     &__neptune
-        background-image: url(../../assets/images/neptune.svg)
-        @include abstracts.circle(abstracts.$neptune-size)
-        @include abstracts.animation-planet(140s)
-        position: relative
-
-        &--triton
-            @extend .satellite
-
-        &--nereide
-            @extend .satellite
-
-        &--protee
-            @extend .satellite
-
-        &--larissa
-            @extend .satellite
+        $neptune-satellites: 'triton', 'nereide', 'protee', 'larissa'
+        $speeds-satellites: ('triton': 7s, 'nereide': 10s, 'protee': 15s, 'larissa': 20s)
+        @each $neptune-satellite in $neptune-satellites
+            &--#{$neptune-satellite}
+                @extend .satellite
+                $speed-satellite: map.get($speeds-satellites, $neptune-satellite)
+                @include abstracts.animation-satellite(abstracts.$neptune-size, abstracts.$satellite-size, $speed-satellite)

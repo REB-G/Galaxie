@@ -1,8 +1,12 @@
-@mixin circle($diameter)
+@use "./_variables" as vars
+@use "sass:math"
+
+@mixin circle($diameter, $url)
     height: $diameter
     width: $diameter
     border-radius: 100%
     flex-shrink: 0
+    background-image: url($url)
 
 @mixin d-flex-start()
     display: flex
@@ -12,3 +16,17 @@
 @mixin animation-planet($speed) 
     animation: rotation $speed linear infinite
     transform-origin: center center
+
+// 1ère façpn de faire un calcul avec un calc(). Cette fonction permet d'effectuer des calculs en mélangeant des unités différentes, ex : rem et px.
+// 2nd façon de faire un calcul avec math.div, attention de bien importer cette fonction avec un @use.
+@mixin animation-satellite($planet, $satellite, $speed)
+    $center-x: calc($satellite / 2) + calc($planet / 2)
+    $center-y: math.div($planet, 2) + math.div($satellite, 2)
+    animation: rotation $speed linear infinite
+    transform-origin: $center-x $center-y
+
+@mixin animation-rotate-around-the-sun($distance-of-sun, $planet-size, $speed)
+    $center-x: (calc(vars.$sun-size / 2) + $distance-of-sun) * -1
+    $center-y: calc($planet-size / 2)
+    animation: rotation $speed linear infinite
+    transform-origin: $center-x $center-y

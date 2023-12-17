@@ -2,6 +2,6 @@
 
 .solar-system
     &__sun
-        background-image: url(../../assets/images/sun.svg)
-        @include abstracts.circle(abstracts.$sun-size)
+        $background-sun: "../../assets/images/sun.svg"
+        @include abstracts.circle(abstracts.$sun-size, $background-sun)
         @include abstracts.animation-planet(200s)
